@@ -108,7 +108,7 @@ export default function HomeScreen() {
 
         <View style={styles.authorBadge}>
           <MaterialCommunityIcons name="barcode-scan" size={14} color={Colors.primary} />
-          <Text style={styles.authorText}>ГОСТ Р 57302-2016 · Автор: А. Свидович · PROGRESS</Text>
+          <Text style={styles.authorText}>ГОСТ Р 57302-2016 · А. Свидович · PROGRESS</Text>
         </View>
 
         <View style={styles.scanButtonContainer}>
@@ -181,7 +181,6 @@ export default function HomeScreen() {
                   </Text>
                 </View>
                 <View style={styles.recentInfo}>
-                  <Text style={styles.recentMatrix}>{scan.matrixSize} · {scan.size}</Text>
                   <Text style={styles.recentTime}>{formatTimestamp(scan.timestamp)}</Text>
                 </View>
                 <Feather name="chevron-right" size={16} color={Colors.textMuted} />

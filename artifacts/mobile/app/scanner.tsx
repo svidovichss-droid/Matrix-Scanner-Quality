@@ -22,7 +22,7 @@ import { Feather } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import { useScanHistory } from "@/context/ScanHistoryContext";
-import { analyzeDataMatrix } from "@/utils/qualityAnalysis";
+import { analyzeDataMatrix, createFailedScan } from "@/utils/qualityAnalysis";
 import { Colors } from "@/constants/colors";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -74,6 +74,7 @@ export default function ScannerScreen() {
   const { addScan } = useScanHistory();
   const scannerRef = useRef<CameraView | null>(null);
   const detectedRef = useRef(false);
+  const barcodeFoundRef = useRef(false);
   const countdownRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -104,18 +105,19 @@ export default function ScannerScreen() {
   }
 
   function handleBarCodeScanned({ data }: { data: string }) {
+    barcodeFoundRef.current = true;
     if (!isAnalyzing && !detectedRef.current && autoCapture) {
       startAutoCapture();
     }
   }
 
-  async function performAnalysis() {
+  async function performAnalysis(found: boolean = true) {
     setIsAnalyzing(true);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
-    await new Promise((r) => setTimeout(r, 1200));
+    await new Promise((r) => setTimeout(r, found ? 1200 : 600));
 
-    const result = analyzeDataMatrix();
+    const result = found ? analyzeDataMatrix() : createFailedScan();
     addScan(result);
     setIsAnalyzing(false);
     router.replace({ pathname: "/result", params: { id: result.id } });
@@ -125,7 +127,7 @@ export default function ScannerScreen() {
     if (isAnalyzing || detectedRef.current) return;
     detectedRef.current = true;
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-    performAnalysis();
+    performAnalysis(barcodeFoundRef.current);
   }
 
   if (!permission) {

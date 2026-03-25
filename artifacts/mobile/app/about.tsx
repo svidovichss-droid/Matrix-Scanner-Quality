@@ -100,7 +100,7 @@ export default function AboutScreen() {
           <Text style={styles.heroTitle}>DataMatrix Scanner</Text>
           <Text style={styles.heroSub}>Анализатор качества печати</Text>
           <View style={styles.heroDivider} />
-          <Text style={styles.heroAuthor}>Автор: А. Свидович · PROGRESS</Text>
+          <Text style={styles.heroAuthor}>А. Свидович · PROGRESS</Text>
           <Text style={styles.heroVersion}>Версия 1.0 · 2024</Text>
         </View>
 

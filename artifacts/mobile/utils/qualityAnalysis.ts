@@ -169,6 +169,37 @@ function generateSampleData(): string {
   return samples[Math.floor(Math.random() * samples.length)];
 }
 
+export function createFailedScan(): ScanResult {
+  const failMetric = (name: string, nameRu: string): QualityMetric => ({
+    name,
+    nameRu,
+    value: 0,
+    grade: "F",
+    description: "DataMatrix не обнаружен в кадре",
+  });
+
+  return {
+    id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+    timestamp: Date.now(),
+    overallGrade: "F",
+    overallScore: 0,
+    data: "",
+    size: "—",
+    moduleSize: 0,
+    matrixSize: "—",
+    metrics: [
+      failMetric("Decode (Decode)", "Декодируемость"),
+      failMetric("SC (Symbol Contrast)", "Символьный контраст"),
+      failMetric("MOD (Modulation)", "Модуляция"),
+      failMetric("MRD (Min Reflectance Diff)", "Минимальная разница отражений"),
+      failMetric("AN (Axial Non-uniformity)", "Осевая неравномерность"),
+      failMetric("UEC (Unused Error Correction)", "Неиспользованная коррекция ошибок"),
+      failMetric("GN (Grid Non-uniformity)", "Неравномерность сетки"),
+      failMetric("FPD (Fixed Pattern Damage)", "Повреждение стационарного шаблона"),
+    ],
+  };
+}
+
 export function gradeColor(grade: QualityGrade): string {
   switch (grade) {
     case "A": return "#00FF94";
