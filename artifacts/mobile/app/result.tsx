@@ -142,13 +142,6 @@ export default function ResultScreen() {
               <Text style={styles.infoValue}>{scan.moduleSize} мм</Text>
             </View>
           </View>
-          <View style={styles.infoDivider} />
-          <View style={styles.dataRow}>
-            <Text style={styles.dataLabel}>Данные:</Text>
-            <Text style={styles.dataValue} numberOfLines={2} selectable>
-              {scan.data}
-            </Text>
-          </View>
         </View>
 
         <Text style={styles.sectionTitle}>Параметры качества</Text>

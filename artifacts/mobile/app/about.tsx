@@ -101,7 +101,7 @@ export default function AboutScreen() {
           <Text style={styles.heroSub}>Анализатор качества печати</Text>
           <View style={styles.heroDivider} />
           <Text style={styles.heroAuthor}>А. Свидович · PROGRESS</Text>
-          <Text style={styles.heroVersion}>Версия 1.0 · 2024</Text>
+          <Text style={styles.heroVersion}>Версия 1.0 · 2026</Text>
         </View>
 
         {/* WHAT THE APP DOES */}
@@ -277,7 +277,7 @@ export default function AboutScreen() {
           <View style={styles.authorDivider} />
           <Text style={styles.authorNote}>
             Приложение разработано специально для PROGRESS.{"\n"}
-            Все права защищены © 2024.
+            Все права защищены © 2026.
           </Text>
         </View>
       </ScrollView>
