@@ -74,6 +74,10 @@ export default function HomeScreen() {
     router.push("/history");
   }
 
+  function handleAbout() {
+    router.push("/about");
+  }
+
   return (
     <View style={[styles.container, { paddingTop: topPad }]}>
       <LinearGradient
@@ -92,14 +96,19 @@ export default function HomeScreen() {
             <Text style={styles.appName}>DataMatrix</Text>
             <Text style={styles.appSub}>Анализатор качества печати</Text>
           </View>
-          <TouchableOpacity style={styles.histBtn} onPress={handleHistory}>
-            <Feather name="clock" size={20} color={Colors.textSecondary} />
-          </TouchableOpacity>
+          <View style={styles.headerButtons}>
+            <TouchableOpacity style={styles.histBtn} onPress={handleAbout}>
+              <Feather name="info" size={20} color={Colors.textSecondary} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.histBtn} onPress={handleHistory}>
+              <Feather name="clock" size={20} color={Colors.textSecondary} />
+            </TouchableOpacity>
+          </View>
         </View>
 
         <View style={styles.authorBadge}>
           <MaterialCommunityIcons name="barcode-scan" size={14} color={Colors.primary} />
-          <Text style={styles.authorText}>ГОСТ Р 57302-2016 · Автор: Александр Свидович</Text>
+          <Text style={styles.authorText}>ГОСТ Р 57302-2016 · Автор: А. Свидович · PROGRESS</Text>
         </View>
 
         <View style={styles.scanButtonContainer}>
@@ -220,6 +229,10 @@ const styles = StyleSheet.create({
     color: Colors.textSecondary,
     fontFamily: "Inter_400Regular",
     marginTop: 2,
+  },
+  headerButtons: {
+    flexDirection: "row",
+    gap: 8,
   },
   histBtn: {
     width: 40,
