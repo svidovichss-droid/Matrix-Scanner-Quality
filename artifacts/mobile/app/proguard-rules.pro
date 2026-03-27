@@ -1,0 +1,3 @@
+-keep class com.progress.datamatrix.data.** { *; }
+-keepattributes Signature
+-keepattributes *Annotation*
