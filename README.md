@@ -173,3 +173,4 @@ artifacts/mobile/
 **А. Свидович / А. Петляков**  
 PROGRESS  
 Версия 1.0 · 2026
+# Matrix-Scanner-Quality
