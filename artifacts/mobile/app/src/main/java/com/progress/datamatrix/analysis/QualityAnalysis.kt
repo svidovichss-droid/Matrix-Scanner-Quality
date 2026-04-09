@@ -5,7 +5,6 @@ import com.progress.datamatrix.data.QualityMetric
 import com.progress.datamatrix.data.ScanResult
 import java.util.UUID
 import kotlin.math.*
-import kotlin.math.roundToInt
 import kotlin.random.Random
 
 private fun scoreToGrade(score: Float): QualityGrade = when {
@@ -110,7 +109,7 @@ fun analyzeDataMatrix(imageVariance: Float? = null): ScanResult {
 
     val metrics = METRIC_DEFS.map { def ->
         val raw    = clamp(randomGaussian(baseScore, 0.5f), 0f, 4f)
-        val rounded = (raw * 2).roundToInt() / 2f
+        val rounded = Math.round(raw * 2) / 2f
         val grade  = scoreToGrade(rounded)
         QualityMetric(
             name        = def.name,
@@ -158,5 +157,3 @@ fun createFailedScan(): ScanResult {
     )
 }
 
-private fun Float.roundToInt() = kotlin.math.roundToInt(this)
-private fun kotlin.math.roundToInt(x: Float) = Math.round(x)
