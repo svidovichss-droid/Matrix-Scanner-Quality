@@ -174,3 +174,4 @@ artifacts/mobile/
 PROGRESS  
 Версия 1.0 · 2026
 # Matrix-Scanner-Quality
+# Data-Matrix-Scanner
