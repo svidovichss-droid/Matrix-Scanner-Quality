@@ -6,3 +6,9 @@ id = "s7d15ftv2QNLA81cYL4Fk"
 uri = "file://README.md"
 type = "text"
 title = "README — DataMatrix Scanner"
+
+[[outputs]]
+id = "hLCOplEPrc2jZB0FKyBfm"
+uri = "file://CAPABILITIES.md"
+type = "text"
+title = "Возможности и ограничения — DataMatrix Scanner"
