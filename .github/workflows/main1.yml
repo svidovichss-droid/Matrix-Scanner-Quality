@@ -1,0 +1,47 @@
+# .github/workflows/build.yml
+name: Build Android APK
+
+# Запускать рабочий процесс при каждом пуше (push) в ветку main
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest # Используем виртуальную машину с Ubuntu
+
+    steps:
+    # Шаг 1: Загрузить код из репозитория на виртуальную машину
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # Шаг 2: Установить Java (требуется JDK 17 для вашего проекта)
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin' # Используем Temurin
+        java-version: '17'
+
+    # Шаг 3: Настроить кэширование для Gradle (ускоряет повторные сборки)
+    - name: Setup Gradle cache
+      uses: gradle/actions/setup-gradle@v3
+
+    # Шаг 4: Сделать Gradle-обертку исполняемой
+    - name: Grant execute permission for gradlew
+      run: chmod +x ./gradlew
+      working-directory: ./artifacts/mobile
+
+    # Шаг 5: Запустить сборку Debug APK
+    - name: Build debug APK
+      run: ./gradlew assembleDebug
+      working-directory: ./artifacts/mobile
+
+    # Шаг 6: Загрузить собранный APK как артефакт (чтобы его можно было скачать)
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Matrix-Scanner-Quality-Debug-APK
+        path: artifacts/mobile/app/build/outputs/apk/debug/app-debug.apk
