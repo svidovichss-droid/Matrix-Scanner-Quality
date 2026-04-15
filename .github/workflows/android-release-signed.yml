@@ -34,6 +34,8 @@ jobs:
         gradle-version: 8.7
         cache-read-only: false
         cache-enabled: true
+        cache-overwrite-existing: true
+        generate-job-summary: false
 
     - name: Grant execute permission for gradlew
       run: |
