@@ -1,0 +1,56 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: 8.7
+
+    - name: Grant execute permission for gradlew
+      run: |
+        cd artifacts/mobile
+        chmod +x gradlew || true
+
+    - name: Build Debug APK
+      run: |
+        cd artifacts/mobile
+        ./gradlew assembleDebug --no-daemon
+
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug-apk
+        path: artifacts/mobile/app/build/outputs/apk/debug/*.apk
+        if-no-files-found: error
+
+    - name: Build Release APK (unsigned)
+      run: |
+        cd artifacts/mobile
+        ./gradlew assembleRelease --no-daemon
+
+    - name: Upload Release APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release-unsigned-apk
+        path: artifacts/mobile/app/build/outputs/apk/release/*.apk
+        if-no-files-found: error
